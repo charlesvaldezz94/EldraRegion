@@ -1,16 +1,32 @@
-import React from "react";
-import Footer from "./Footer";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Home, PokedexPage, Starters} from "./";
+import { getAllPokemon } from "../apiAdapter";
 
 const Main = () => {
-  return <div id="main">
-    <div className="mainContainer">
-      <div className="mainTitle"> Welcome to the Eldra Region </div>
-      <div className="imageContainer"> Map image here </div>
-      <div className="startersContainer"> Check out the starters here </div>
-      <div className="fullDexContainer"> Check out the full pokedex here! </div>
-    </div>
-    <Footer />
-    </div>;
+  const [allPokemon, setAllPokemon] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllPokemon() {
+      const fullDex = await getAllPokemon();
+      setAllPokemon(fullDex);
+    }
+    fetchAllPokemon();
+
+    },
+  [])
+
+  return (
+    <BrowserRouter>
+    <div className="MainContainer">
+      </div>
+      <Routes>
+      <Route path="/" exact element={<Home/>} />
+      <Route path="/pokedex" element={<PokedexPage allPokemon={allPokemon} setAllPokemon={setAllPokemon}/>} />
+      <Route path="/starters" element={<Starters/>} />
+      </Routes>
+    </BrowserRouter>
+  )
 };
 
 export default Main;
