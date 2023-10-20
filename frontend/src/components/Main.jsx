@@ -5,6 +5,7 @@ import { getAllPokemon } from "../apiAdapter";
 
 const Main = () => {
   const [allPokemon, setAllPokemon] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     async function fetchAllPokemon() {
@@ -14,7 +15,8 @@ const Main = () => {
     fetchAllPokemon();
 
     },
-  [])
+  []);
+
 
   return (
     <BrowserRouter>

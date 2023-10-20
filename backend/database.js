@@ -17,6 +17,7 @@ export async function getPokedex() {
     return rows
 };
 
+//select single pokemon
 export async function getPokemon(id) {
     const [rows] = await pool.query(`
     SELECT * 
@@ -26,11 +27,19 @@ export async function getPokemon(id) {
     return rows [0]
 };
 
+//creating new pokemon
 export async function createPokemon(number, name, type1, type2, pokedex_entry, average_weight, average_height) {
     const [result] = await pool.query(`
     INSERT INTO pokedex (number, name, type1, type2, pokedex_entry, average_weight, average_height)
     VALUES (?, ?, ?, ?, ?, ?, ?)
     `, [number, name, type1, type2, pokedex_entry, average_weight, average_height])
+};
+
+//deleting a created pokemon
+export async function deletePokemon(id) {
+    const [result] = await pool.query(`
+    DELETE FROM pokedex WHERE id=?`, [id]);
+    console.log(`Pokemon with id:${id} has been deleted`)
 };
 
 //create all async functions and export

@@ -12,3 +12,23 @@ export async function getAllPokemon() {
       return alert("Error loading the Pokedex");
     }
   };
+
+  export async function deleteSinglePokemon(id) {
+    try {
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          id
+        })
+      }
+      const response = await fetch(`${BASE_URL}/dex`, options);
+      const result = await response.json();
+      console.log(options)
+      return result;
+    }
+    catch (error) {
+    }
+  };

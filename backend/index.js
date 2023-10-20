@@ -4,7 +4,8 @@ import cors from 'cors';
 import {
     getPokedex,
     getPokemon,
-    createPokemon
+    createPokemon,
+    deletePokemon
 } from './database.js';
 
 const app = express();
@@ -31,6 +32,12 @@ app.post("/dex", async (req, res) => {
     const { number, name, type1, type2, pokedex_entry, average_weight, average_height } = req.body;
     const createdPokemon = await createPokemon(number, name, type1, type2, pokedex_entry, average_weight, average_height);
     res.status(201).send(createdPokemon);
+});
+
+app.delete("/dex", async (req, res) => {
+    const {id} = req.body;
+    const deletedPokemon = await deletePokemon(id);
+    res.status(201).send(`Pokemon with id:${id} has been deleted!`, deletedPokemon);
 });
 
 //Error handler
