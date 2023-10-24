@@ -9,10 +9,10 @@ const PokedexPage = (props) => {
   const { pokemonID } = useParams();
 
   async function handleSubmitDeleteSinglePokemon(pokemonID) {
-    console.log(pokemonID);
-    event.preventDefault();
     const deletedPokemon = await deleteSinglePokemon(pokemonID);
-   };
+    alert("This pokemon has been deleted");
+    location.reload();
+  }
 
   return (
     <div className="pokedexPageContainer">
@@ -24,8 +24,12 @@ const PokedexPage = (props) => {
             <div className="pokemonType2">{pokemon.type2} </div>
             <div className="pokemonDexEntry">{pokemon.pokedex_entry} </div>
             <div className="pokemonAvgW">{pokemon.average_weight} kg </div>
-            <div className="PokemonAvgH"> {pokemon.average_height} centimeters </div>
-            <button onClick={() => handleSubmitDeleteSinglePokemon(pokemon.id)}> Delete Pokemon </button>
+            <div className="PokemonAvgH">
+              {pokemon.average_height} centimeters
+            </div>
+            <button onClick={() => handleSubmitDeleteSinglePokemon(pokemon.id)}>
+              Delete Pokemon
+            </button>
             <br></br>
           </div>
         ))}
